@@ -12,7 +12,7 @@ class FavoriteAnimalViewController: UITableViewController {
 
 // MARK: - Properties
     
-    let myFavoriteAnimals = ["Lions", "Tigers", "Dogs", "Tortoises", "Elephants"]
+    var myFavoriteAnimals = ["Lions", "Tigers", "Dogs", "Tortoises", "Elephants"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ class FavoriteAnimalViewController: UITableViewController {
 // MARK: - Methods
    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return myFavoriteAnimals.count
     }
     
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -36,6 +36,14 @@ class FavoriteAnimalViewController: UITableViewController {
         cell.textLabel?.text = myFavoriteAnimals[indexPath.row]
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            myFavoriteAnimals.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }
 
